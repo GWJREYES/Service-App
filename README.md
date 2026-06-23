@@ -64,18 +64,19 @@ After it loads online once, the service worker caches everything, so it then
 
 ## How a technician uses it
 
-- **Three layouts** are included side-by-side on a pan/zoom canvas. Drag to pan,
-  pinch to zoom, and tap an artboard's full-screen button to use one big.
-  - **A · Command Bar** — tile strip on top, working list + side rail
-  - **B · Vertical Rail** — dark navy stage timeline down the left
-  - **C · Focus Flow** — one stage at a time, large tap targets (best for new techs)
-- **Check off** each sub-task as you go; progress is tracked per stage and overall.
+- **One stage per screen.** Swipe **left/right** to move through the seven SERVICE
+  stages, or use the **Back / Next** buttons. Tap any letter tile up top to jump
+  straight to a stage. The dots at the bottom show where you are.
+- **Check off** each sub-task as you go (big tap targets); progress is tracked per
+  stage and overall, and your place is remembered if the app is closed.
 - **Notes & photos** can be added to any step.
 - **Voice recording** of the conversation is available on the four
   customer-facing stages (Engage, Review, Convert, Extend) — it records until you
   move to the next stage.
 - **Scripts** appear where needed: the *On the Way Call* script (Engage) and the
   *Table script* (Review), with key phrases and fill-in `<name>` chips.
+- On the **last stage**, once everything is checked, a **Done — reset** button
+  clears the appointment for the next customer.
 
 All notes, photos, recordings, and checkmarks are saved **on that iPad only**
 (in the browser's local storage). Nothing is uploaded.

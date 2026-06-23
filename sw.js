@@ -1,7 +1,7 @@
 // Service worker — offline cache for the Service Appointment Checklist.
 // The page is fully self-contained (everything inlined), so caching the
 // HTML shell is enough to run with no signal in the field.
-const CACHE = 'svc-checklist-v2';
+const CACHE = 'svc-checklist-v3';
 const CORE = ['./', './index.html', './manifest.webmanifest', './app-icon.png'];
 
 self.addEventListener('install', (e) => {
