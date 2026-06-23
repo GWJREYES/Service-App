@@ -1,0 +1,15 @@
+{
+  "name": "S.E.R.V.I.C.E. Appointment Checklist",
+  "short_name": "S.E.R.V.I.C.E.",
+  "description": "Step-by-step service appointment checklist for technicians.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#1B2C4F",
+  "theme_color": "#1B2C4F",
+  "icons": [
+    { "src": "./app-icon.png", "sizes": "360x360", "type": "image/png", "purpose": "any" },
+    { "src": "./app-icon.png", "sizes": "360x360", "type": "image/png", "purpose": "maskable" }
+  ]
+}
