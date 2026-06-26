@@ -1,0 +1,10 @@
+{
+  "name": "service-appointment-checklist",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Groundworks S.E.R.V.I.C.E. appointment checklist — iPad field app + report email backend.",
+  "scripts": {
+    "dev": "vercel dev"
+  }
+}

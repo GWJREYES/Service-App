@@ -1,12 +1,12 @@
 {
-  "name": "S.E.R.V.I.C.E. Appointment Checklist",
+  "name": "Groundworks S.E.R.V.I.C.E.",
   "short_name": "S.E.R.V.I.C.E.",
   "description": "Step-by-step service appointment checklist for technicians.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "orientation": "any",
-  "background_color": "#1B2C4F",
+  "orientation": "landscape",
+  "background_color": "#0E1729",
   "theme_color": "#1B2C4F",
   "icons": [
     { "src": "./app-icon.png", "sizes": "360x360", "type": "image/png", "purpose": "any" },
