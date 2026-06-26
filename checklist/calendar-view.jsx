@@ -168,7 +168,13 @@ function ApptCard({ rec, live, onResume, onOpen }) {
 }
 
 // read-only detail for a completed appointment
-function ApptDetail({ rec, onEdit, onClose }) {
+function ApptDetail({ rec, onEdit, onDelete, onClose }) {
+  const [confirming, setConfirming] = React.useState(false);
+  function reallyDelete() {
+    if (window.confirm('Permanently delete ' + (rec.customer && rec.customer.name || 'this') + '’s completed appointment from your schedule?\n\nThis cannot be undone. (Any report already emailed has still been sent.)')) {
+      onDelete(rec.id);
+    }
+  }
   return (
     <div onClick={onClose} style={{ position: 'absolute', inset: 0, zIndex: 60, background: 'rgba(15,23,40,.5)', backdropFilter: 'blur(3px)',
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 30, fontFamily: 'Public Sans, sans-serif' }}>
@@ -208,12 +214,31 @@ function ApptDetail({ rec, onEdit, onClose }) {
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke={GW.green} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
             <span style={{ fontSize: 13.5, color: '#2A6B45', fontWeight: 700 }}>Report sent to {rec.sentTo} · {rec.outcome}</span>
           </div>
-          <div style={{ display: 'flex', gap: 11, marginTop: 18 }}>
-            <button onClick={onEdit} style={{ flex: 1, padding: '14px', borderRadius: 12, border: '1.5px solid ' + GW.line, background: GW.white, color: GW.navy, fontFamily: 'Archivo, sans-serif', fontWeight: 800, fontSize: 15, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 17.5V21h3.5L17 10.5 13.5 7 3 17.5z" /><path d="M14.5 6l3.5 3.5" /></svg>Edit details
-            </button>
-            <button onClick={onClose} style={{ flex: 1, padding: '14px', borderRadius: 12, border: 'none', background: GW.navy, color: '#fff', fontFamily: 'Archivo, sans-serif', fontWeight: 800, fontSize: 15, cursor: 'pointer' }}>Close</button>
-          </div>
+          {!confirming ? (
+            <div style={{ display: 'flex', gap: 11, marginTop: 18 }}>
+              <button onClick={onEdit} style={{ flex: 1, padding: '14px', borderRadius: 12, border: '1.5px solid ' + GW.line, background: GW.white, color: GW.navy, fontFamily: 'Archivo, sans-serif', fontWeight: 800, fontSize: 15, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 17.5V21h3.5L17 10.5 13.5 7 3 17.5z" /><path d="M14.5 6l3.5 3.5" /></svg>Edit details
+              </button>
+              <button onClick={() => setConfirming(true)} style={{ flex: '0 0 auto', padding: '14px 18px', borderRadius: 12, border: '1.5px solid ' + GW.line, background: GW.white, color: GW.muted, fontFamily: 'Public Sans, sans-serif', fontWeight: 700, fontSize: 14, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 7 }}>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" /></svg>Delete
+              </button>
+              <button onClick={onClose} style={{ flex: 1, padding: '14px', borderRadius: 12, border: 'none', background: GW.navy, color: '#fff', fontFamily: 'Archivo, sans-serif', fontWeight: 800, fontSize: 15, cursor: 'pointer' }}>Close</button>
+            </div>
+          ) : (
+            <div style={{ marginTop: 18, background: '#FCF1EF', border: '1px solid #E6BDB8', borderRadius: 14, padding: '16px 18px' }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 11 }}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C5443B" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 1 }}><path d="M12 9v4M12 17h.01M10.3 3.9L2 18a2 2 0 0 0 1.7 3h16.6a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" /></svg>
+                <div>
+                  <div style={{ fontFamily: 'Archivo, sans-serif', fontWeight: 800, fontSize: 15.5, color: '#9A2F27' }}>Delete this completed appointment?</div>
+                  <div style={{ fontSize: 13.5, color: '#8A5A55', marginTop: 4, lineHeight: 1.5 }}>It will be removed from your schedule. This can’t be undone. Any report already emailed has still been sent.</div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: 11, marginTop: 15 }}>
+                <button onClick={() => setConfirming(false)} style={{ flex: 1, padding: '13px', borderRadius: 11, border: '1.5px solid ' + GW.line, background: GW.white, color: GW.navy, fontFamily: 'Archivo, sans-serif', fontWeight: 800, fontSize: 14.5, cursor: 'pointer' }}>Keep it</button>
+                <button onClick={reallyDelete} style={{ flex: 1, padding: '13px', borderRadius: 11, border: 'none', background: '#C5443B', color: '#fff', fontFamily: 'Archivo, sans-serif', fontWeight: 800, fontSize: 14.5, cursor: 'pointer' }}>Delete permanently</button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -640,6 +665,7 @@ function CalendarView({ store, onOpenAppointment }) {
 
       {detail && <ApptDetail rec={detail}
         onEdit={() => { const r = detail; setDetail(null); setFormRec(r); }}
+        onDelete={(id) => { cal.remove(id); setDetail(null); }}
         onClose={() => setDetail(null)} />}
       {schedDetail && <ScheduledSheet rec={schedDetail}
         onStart={() => startScheduled(schedDetail)}
